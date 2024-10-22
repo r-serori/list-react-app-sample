@@ -1,0 +1,18 @@
+body {
+  font-family: Arial, sans-serif;
+}
+.item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  transition: all 0.3s ease; /* スムーズな変化のためのトランジション */
+}
+.item.updated {
+  background-color: lightblue;
+  font-size: 20px;
+  padding: 20px;
+  height: 100px;
+}
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
