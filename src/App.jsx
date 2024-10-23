@@ -37,7 +37,7 @@ const App = () => {
     <div className="container">
       <h1>在庫管理システム（仮想DOM）</h1>
       <button onClick={handleUpdateAll}>一気に100個を在庫ありに変更</button>
-      <span>更新した数: {updateCount}</span>
+      <span> 更新した数: {updateCount}</span>
       <div id="item-list">
         {Array.from({ length: totalItems }, (_, index) => (
           <ListItem
