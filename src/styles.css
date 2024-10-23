@@ -6,8 +6,8 @@ body {
   border-bottom: 1px solid #ddd;
   transition: all 0.3s ease; /* スムーズな変化のためのトランジション */
 }
-.item.updated {
-  background-color: lightblue;
+.in-stock {
+  background-color: lightgreen;
   font-size: 20px;
   padding: 20px;
   height: 100px;

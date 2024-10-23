@@ -1,44 +1,49 @@
-import "./styles.css";
 import React, { useState } from "react";
+import "./styles.css";
 
-// リストアイテムのコンポーネント
-const ListItem = ({ id, isUpdated, onUpdate }) => {
+const ListItem = ({ id, inStock }) => {
   return (
-    <div className={`item ${isUpdated ? "updated" : ""}`}>
-      <span>{isUpdated ? `Updated Item ${id} - Updated!` : `Item ${id}`}</span>
-      <button onClick={() => onUpdate(id)}>更新</button>
+    <div className={`item ${inStock ? "in-stock" : ""}`}>
+      <span>{inStock ? `商品 ${id} - 在庫あり` : `商品 ${id} - 在庫なし`}</span>
     </div>
   );
 };
 
-// メインコンポーネント
 const App = () => {
-  const totalItems = 1000;
-
-  // 各アイテムが更新されたかどうかの状態を管理
+  const totalItems = 10000;
   const [updatedItems, setUpdatedItems] = useState(
     Array(totalItems).fill(false)
   );
-  const [updateCount, setUpdateCount] = useState(1); // 更新回数を追跡
+  const [updateCount, setUpdateCount] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // リストアイテムの更新を行う関数
-  const handleUpdate = (id) => {
-    setUpdatedItems((prevItems) =>
-      prevItems.map((item, index) => (index === id - 1 ? !item : item))
+  // 一気に100個更新する関数
+  const handleUpdateAll = () => {
+    setUpdatedItems((prevItems) => {
+      return prevItems.map((item, index) => {
+        if (index >= currentIndex && index < currentIndex + 100) {
+          return true;
+        }
+        return item;
+      });
+    });
+    setUpdateCount(
+      currentIndex + 100 > totalItems ? totalItems : currentIndex + 100
     );
-    setUpdateCount(updateCount + 1); // 更新回数を増やす
+    setCurrentIndex(currentIndex + 100);
   };
 
   return (
     <div className="container">
-      <h1>リストのパフォーマンステスト</h1>
+      <h1>在庫管理システム（仮想DOM）</h1>
+      <button onClick={handleUpdateAll}>一気に100個を在庫ありに変更</button>
+      <span>更新した数: {updateCount}</span>
       <div id="item-list">
         {Array.from({ length: totalItems }, (_, index) => (
           <ListItem
             key={index + 1}
             id={index + 1}
-            isUpdated={updatedItems[index]}
-            onUpdate={handleUpdate}
+            inStock={updatedItems[index]}
           />
         ))}
       </div>
