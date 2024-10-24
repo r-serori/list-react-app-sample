@@ -33,10 +33,18 @@ const App = () => {
     setCurrentIndex(currentIndex + 100);
   };
 
+  // 在庫をすべて「なし」に戻す関数
+  const handleResetAll = () => {
+    setUpdatedItems(Array(totalItems).fill(false)); // 全てを在庫なしにリセット
+    setUpdateCount(0); // 更新数もリセット
+    setCurrentIndex(0); // インデックスもリセット
+  };
+
   return (
     <div className="container">
       <h1>在庫管理システム（仮想DOM）</h1>
       <button onClick={handleUpdateAll}>一気に100個を在庫ありに変更</button>
+      <button onClick={handleResetAll}>全ての在庫を「なし」にリセット</button>
       <span> 更新した数: {updateCount}</span>
       <div id="item-list">
         {Array.from({ length: totalItems }, (_, index) => (
